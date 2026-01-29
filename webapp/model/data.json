@@ -1,6 +1,5 @@
 {
-	"firstName" : "Harry",
-	"lastName" : "Hawk",
-	"enabled" : true,
-	"panelHeaderText" : "Data Binding Basics"
+	"firstName": "Harry",
+	"lastName": "Hawk",
+	"enabled": true
 }

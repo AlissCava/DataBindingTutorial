@@ -29,6 +29,18 @@
 				"uri": "./model/data.json"
 			}
 		},
+
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "ui5.databinding.i18n.i18n",
+					"supportedLocales": [
+						"",
+						"de"
+					],
+					"fallbackLocale": ""
+				}
+			},
 		"rootView": {
 			"viewName": "ui5.databinding.view.App",
 			"type": "XML",
