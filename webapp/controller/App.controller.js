@@ -17,11 +17,20 @@ sap.ui.define([
 
 		formatStockValue(fUnitPrice, iStockLevel, sCurrCode) {
 			const oCurrency = new Currency();
-
 			return oCurrency.formatValue([fUnitPrice * iStockLevel, sCurrCode], "string");
+		},
+
+		onItemSelected(oEvent) {
+			const oSelectedItem = oEvent.getSource();
+			const oContext = oSelectedItem.getBindingContext("products");
+			const sPath = oContext.getPath();
+			const oProductDetailPanel = this.byId("productDetailsPanel");
+			oProductDetailPanel.bindElement({ path: sPath, model: "products" });
 		}
 	});
 });
+
+
 /*
 STEP 9
 Logica del Formattatore Personalizzato (App.controller.js):
@@ -40,4 +49,12 @@ Estensione dei Formattatori nel Controller (App.controller.js):
 - Multi-Input: il formattatore accetta tre parametri (prezzo, stock, codice valuta) che verranno passati tramite un "Parts Binding" nella vista XML.
 - Reattività: il valore totale viene ricalcolato istantaneamente dal framework ogni volta che uno dei tre parametri nel modello dati subisce una modifica.
 
+STEP 13
+Gestione della Selezione e Element Binding (App.controller.js):
+- onItemSelected: viene invocata quando l'utente interagisce con un elemento della lista (es. un clic su una riga).
+- oEvent.getSource(): recupera l'istanza del controllo che ha scatenato l'evento.
+- getBindingContext("products"): ottiene l'oggetto di contesto specifico per il modello "products", che contiene i dati dell'elemento cliccato.
+- getPath(): estrae il percorso assoluto dei dati nel modello (es. "/Products/3").
+- bindElement: questa è la funzione chiave. "Incolla" il pannello dei dettagli (productDetailsPanel) a un punto specifico del modello. 
+- Ereditarietà del Binding: una volta collegato il pannello al percorso (sPath), tutti i controlli al suo interno (Label, Text, ecc.) mostreranno automaticamente i dati relativi a quel particolare prodotto senza bisogno di ulteriore codice.
 */
