@@ -21,8 +21,16 @@
 						type: 'Currency',
 						formatOptions: { showMeasure: false }
 					}"
-					numberUnit="{/currencyCode}">
-					<attributes>
+					numberUnit="{/currencyCode}"
+          numberState="{= ${products>UnitPrice} > ${/priceThreshold} ? 'Error' : 'Success' }">
+					<!--Logica dinamica: Viene aggiunto un valore di soglia (20€) nel file dei dati. Nella vista, il colore del prezzo (proprietà numberState) viene deciso da una formula "al volo": se il prezzo supera la soglia diventa rosso (Error), altrimenti diventa verde (Success).
+          Attenzione ai caratteri speciali: Il tutorial evidenzia un problema comune. Usando il simbolo "minore di" (<) il codice si rompe, perché il sistema lo scambia per l'apertura di un nuovo tag XML.
+          La soluzione: Per evitare errori, è meglio invertire la logica usando il "maggiore di" (>) oppure utilizzare i codici speciali (come &lt;). Gli sviluppatori consigliano la prima opzione perché rende il codice molto più leggibile.
+          
+          Il risultato è una lista intelligente che aiuta l'utente a identificare a colpo d'occhio i prodotti più costosi.-->
+
+          
+          <attributes>
 						<ObjectAttribute text="{products>QuantityPerUnit}"/>
 						<ObjectAttribute title="{i18n>stockValue}"
 							text="{
